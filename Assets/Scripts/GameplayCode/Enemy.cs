@@ -11,9 +11,11 @@ public class Enemy : MonoBehaviour, IDamagable
 
     [SerializeField] HealthSubsystem healthSubsystem;
 
-    public void Damage(float damage)
+    public void Damage(float damage, Vector2 dir)
     {
         healthSubsystem.Damage(damage);
+        PushSelf(damage, dir);
+        stateTree.SetData("IsDamaged", true);
     }
 
     private void Start()
@@ -28,5 +30,11 @@ public class Enemy : MonoBehaviour, IDamagable
     private void Update()
     {
         stateTree.Execution();
+    }
+
+    public void PushSelf(float amount, Vector2 dir)
+    {
+        agent.ResetPath();
+        agent.velocity = amount * dir;
     }
 }

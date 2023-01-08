@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,15 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 
     [SerializeField] HealthSubsystem healthSubsystem;
 
-    public void Damage(float damage)
+
+    float timer = .51f;
+    bool isTimerRun;
+    const float limitTimer = .5f; 
+
+    public void Damage(float damage, Vector2 dir)
     {
         healthSubsystem.Damage(damage);
+        PushSelf(damage, dir);
     }
 
     private void Start()
@@ -28,22 +35,47 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 
     private void Update()
     {
-        stateTree.Execution();
-    }
+        stateTree.SetData("EnemyFind", Physics2D.OverlapCircle(transform.position,2.5f, LayerMask.GetMask("Enemy")) != null);
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
+        stateTree.Execution();
+
+        timer += Time.deltaTime;
+
+        var target = Physics2D.OverlapCircle(transform.position, .7f, LayerMask.GetMask("Enemy"));
+        if (target != null)
         {
-            switch((LilSkeletonStateTree.States)stateTree.GetCurrState())
+            if(timer > limitTimer)
             {
-                case LilSkeletonStateTree.States.kCombat:
-                    collision.gameObject.GetComponent<Enemy>().Damage(AttackPower);
-                    break;
-                case LilSkeletonStateTree.States.kIdle:
-                   healthSubsystem.Damage(collision.gameObject.GetComponent<Enemy>().attackPower);
-                    break;
+                Vector2 dir;
+                switch ((LilSkeletonStateTree.States)stateTree.GetCurrState())
+                {
+                    case LilSkeletonStateTree.States.kCombat:
+                        dir = target.transform.position - transform.position;
+                        dir = dir.normalized;
+                        target.gameObject.GetComponent<Enemy>().Damage(AttackPower, dir);
+                        stateTree.SetData("IsAttack", true);
+                        PushSelf(.2f, -dir);
+                        break;
+                    case LilSkeletonStateTree.States.kIdle:
+                        dir = transform.position - target.transform.position;
+                        dir = dir.normalized;
+                        Damage(target.gameObject.GetComponent<Enemy>().attackPower, dir);
+                        target.gameObject.GetComponent<Enemy>().PushSelf(.2f, -dir);
+                        break;
+
+                }
+                timer = 0;
             }
         }
+        
+
+        
+    }
+    
+
+    public void PushSelf(float amount, Vector2 dir)
+    {
+        agent.ResetPath();
+        agent.velocity = amount * dir;
     }
 }

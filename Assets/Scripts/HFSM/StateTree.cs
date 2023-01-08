@@ -11,9 +11,12 @@ public abstract class StateTree
     [SerializeField] bool trans;
     [SerializeField] bool loop;
 
+    public Dictionary<string, object> dataMap;
+
     [SerializeField] bool _debug;
     protected abstract void SetupTree(GameObject gameObject);
 
+    protected abstract void SetupDataMap();
     public void Execution()
     {
         if (_currState.IsFinish)
@@ -34,5 +37,15 @@ public abstract class StateTree
     public int GetCurrState()
     {
         return _currStateIndex;
+    }
+
+    public void SetData<T>(string key, T value)
+    {
+        object originData;
+        if(dataMap.TryGetValue(key, out originData))
+        {
+            dataMap[key] = value;
+        }
+        
     }
 }

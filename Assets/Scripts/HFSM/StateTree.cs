@@ -30,4 +30,9 @@ public abstract class StateTree
             _currStateIndex = stateIndex; 
         }
     }
+
+    public int GetCurrState()
+    {
+        return _currStateIndex;
+    }
 }

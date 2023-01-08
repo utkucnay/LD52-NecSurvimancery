@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transition : MonoBehaviour
+public class Transition
 {
     public static Transition Init(Condition condition, int stateIndex) =>
         new Transition { _condition = condition, _stateIndex = stateIndex };

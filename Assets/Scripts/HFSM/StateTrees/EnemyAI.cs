@@ -31,6 +31,7 @@ public class EnemyAI : StateTree
                 .2f), new Command[] { FollowClosesetSkeletonCommand.Init(gameObject) }));
         MoveSeqancer.AddCommand(TimerCommand.Init(.4f));
 
+
         var MoveState = HierarchicalState.Init(MoveSeqancer);
 
         _states[(int)States.kMove] = MoveState;

@@ -6,8 +6,8 @@ public class CharachterRotater : MonoBehaviour
 {
     private Vector2 dir;
 
-    static readonly Vector3 RightSide = new Vector3(-1, 2.5f, 1);
-    static readonly Vector3 LeftSide = new Vector3(1, 2.5f, 1);
+    static readonly Vector3 RightSide = new Vector3(-1, 1f, 1);
+    static readonly Vector3 LeftSide = new Vector3(1, 1f, 1);
 
     public Vector2 Dir
     {

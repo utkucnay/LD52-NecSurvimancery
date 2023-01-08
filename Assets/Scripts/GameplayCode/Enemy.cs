@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class LilSkeleton : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     NavMeshAgent agent;
     StateTree stateTree;
 
     private void Start()
     {
-        stateTree = LilSkeletonStateTree.Init(gameObject);
+        stateTree = EnemyAI.Init(gameObject);
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;

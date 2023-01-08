@@ -2,9 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//thanks to Bernardo Pacheco
+
 public class EventManager : Singleton<EventManager>
 {
     private Dictionary<string, Action<Dictionary<string, object>>> eventDictionary;
+
+    public override void Awake()
+    {
+        base.Awake();
+        eventDictionary = new Dictionary<string, Action<Dictionary<string, object>>>();
+    }
 
     public void StartListening(string eventName, Action<Dictionary<string, object>> listener)
     {

@@ -41,6 +41,8 @@ public class LilSkeletonStateTree : StateTree
                 gameObject.GetComponent<NavMeshAgent>() , GameObject.FindGameObjectWithTag("Player")), new Command[] { CharacterRotaterCommand.Init(gameObject) }));
         FollowPlayerSeqancer.AddCommand(TimerCommand.Init(.4f));
 
+
+
         var IdleState = HierarchicalState.Init(IdleSeqancer, false);
         var CombatState = HierarchicalState.Init(CombatSeqancer, false);
         var FollowPlayerState = HierarchicalState.Init(FollowPlayerSeqancer);

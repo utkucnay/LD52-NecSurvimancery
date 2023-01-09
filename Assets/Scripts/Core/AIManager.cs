@@ -78,7 +78,7 @@ public class AIManager : Singleton<AIManager>
             int lenght = midSkeletons.Count;
             Vector3 avrVec = Vector3.zero;
             var midSkeletonsTween = new List<GameObject>();
-            for (int i = midSkeletons.Count - 8; i < lenght; i++)
+            for (int i = midSkeletons.Count - 4; i < lenght; i++)
             {
                 avrVec += midSkeletons[i].transform.position;
                 midSkeletonsTween.Add(midSkeletons[i]);
@@ -91,13 +91,13 @@ public class AIManager : Singleton<AIManager>
             seq.AppendCallback(() =>
             {
                 AddHugeSkeleton(avrVec);
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     RemoveMidSkeleton(midSkeletonsTween[i]);
                 }
                 midSkeletonsTween.Clear();
             });
-            for (int i = 1; i < 8; i++)
+            for (int i = 1; i < 4; i++)
             {
                 midSkeletonsTween[i].transform.DOMove(avrVec, 3.5f).SetEase(Ease.InQuad);
             }

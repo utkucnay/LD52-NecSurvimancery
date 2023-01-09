@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class MidSkeleton : MonoBehaviour
     [SerializeField] float dashSpeed = 10f;
 
     [SerializeField] HealthSubsystem healthSubsystem;
+    SpriteRenderer sr;
 
 
     float timer = .51f;
@@ -22,11 +24,15 @@ public class MidSkeleton : MonoBehaviour
     public void Damage(float damage, Vector2 dir)
     {
         PushSelf(damage, dir);
+        var seq = DOTween.Sequence();
+        seq.Append(sr.material.DOColor(Color.red, .2f));
+        seq.Append(sr.material.DOColor(Color.white, .2f));
         healthSubsystem.Damage(damage);
     }
 
     private void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         stateTree = MidSkeletonStateTree.Init(gameObject);
         healthSubsystem.Start(gameObject, OnDie);
         agent = GetComponent<NavMeshAgent>();

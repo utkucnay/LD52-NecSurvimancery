@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         AIManager.s_Instance.AddLilSkeleton(this.gameObject);
         ObjectPool.s_Instance.SetObject(objectType, this.gameObject);
+        GameManager.s_Instance.souls += 1;
     }
 
     public void PushSelf(float amount, Vector2 dir)

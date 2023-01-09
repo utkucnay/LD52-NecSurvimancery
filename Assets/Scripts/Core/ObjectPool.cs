@@ -7,6 +7,8 @@ public enum ObjectType
     LilSkeleton,
     MidSkeleton,
     HugeSkeleton,
+    Deer,
+    Wolf,
     Village1,
     Village2,
     Village3,

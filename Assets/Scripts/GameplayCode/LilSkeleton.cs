@@ -8,6 +8,7 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 {
     NavMeshAgent agent;
     StateTree stateTree;
+    SpriteRenderer sr;
 
     [SerializeField] float AttackPower = 0;
     [SerializeField] float range = 2.5f;
@@ -23,11 +24,15 @@ public class LilSkeleton : MonoBehaviour, IDamagable
     public void Damage(float damage, Vector2 dir)
     {
         PushSelf(damage, dir);
+        var seq = DOTween.Sequence();
+        seq.Append(sr.material.DOColor(Color.red, .2f));
+        seq.Append(sr.material.DOColor(Color.white, .2f));
         healthSubsystem.Damage(damage);
     }
 
     private void Start()
     {
+        sr= GetComponent<SpriteRenderer>();
         stateTree = LilSkeletonStateTree.Init(gameObject);
         healthSubsystem.Start(gameObject, OnDie);
         agent = GetComponent<NavMeshAgent>();
@@ -43,7 +48,7 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 
         stateTree.Execution();
 
-        Debug.Log(((LilSkeletonStateTree.States)stateTree.GetCurrState()).ToString());
+        //Debug.Log(((LilSkeletonStateTree.States)stateTree.GetCurrState()).ToString());
 
         timer += Time.deltaTime;
 

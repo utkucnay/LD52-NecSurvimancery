@@ -30,7 +30,7 @@ public class AIManager : Singleton<AIManager>
             int length = lilSkeletons.Count;
             Vector3 avrVec = Vector3.zero;
             var lilSkeletonsTween = new List<GameObject>();
-            for (int i = lilSkeletons.Count - 10; i < length * lilSkeletons.Count / 10; i++)
+            for (int i = lilSkeletons.Count - 10; i < length; i++)
             {
                 avrVec += lilSkeletons[i].transform.position;
                 lilSkeletonsTween.Add(lilSkeletons[i]);
@@ -78,7 +78,7 @@ public class AIManager : Singleton<AIManager>
             int lenght = midSkeletons.Count;
             Vector3 avrVec = Vector3.zero;
             var midSkeletonsTween = new List<GameObject>();
-            for (int i = 0; i < lenght; i++)
+            for (int i = midSkeletons.Count - 8; i < lenght; i++)
             {
                 avrVec += midSkeletons[i].transform.position;
                 midSkeletonsTween.Add(midSkeletons[i]);
@@ -118,7 +118,7 @@ public class AIManager : Singleton<AIManager>
         hugeSkeleton.transform.position = loc;
         hugeSkeleton.SetActive(true);
         hugeSkeletons.Add(hugeSkeleton);
-        targetGroup.AddMember(hugeSkeleton.transform, 1, 0);
+        //targetGroup.AddMember(hugeSkeleton.transform, 1, 0);
     }
 
     public void RemoveHugeSkeleton(GameObject gameObject)
@@ -126,7 +126,7 @@ public class AIManager : Singleton<AIManager>
         ObjectPool.s_Instance.SetObject(ObjectType.HugeSkeleton, gameObject);
         gameObject.SetActive(false);
         hugeSkeletons.Remove(gameObject);
-        targetGroup.RemoveMember(gameObject.transform);
+        //targetGroup.RemoveMember(gameObject.transform);
     }
 
     public GameObject GetClosestSkeleton(in Vector3 loc)
@@ -137,7 +137,9 @@ public class AIManager : Singleton<AIManager>
         allSkeleton.AddRange(lilSkeletons);
         allSkeleton.AddRange(midSkeletons);
         allSkeleton.AddRange(hugeSkeletons);
+
         if (allSkeleton.Count <= 0) return null;
+
         foreach (var skeleton in allSkeleton)
         {
             float tempMin = Vector3.Distance(skeleton.transform.position, loc);

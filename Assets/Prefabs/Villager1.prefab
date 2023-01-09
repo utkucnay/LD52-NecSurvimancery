@@ -126,7 +126,7 @@ MonoBehaviour:
   healthSubsystem:
     health: 0
     maxHealth: 1
-  objectType: 3
+  objectType: 5
 --- !u!61 &232969813
 BoxCollider2D:
   m_ObjectHideFlags: 0

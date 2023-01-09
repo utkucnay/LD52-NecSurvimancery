@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    float time;
+    public float time;
     int SpawnCount = 0;
     float SpawnTimer = 0;
 
     public Transform SpawnLoc;
+
+    public int souls;
+
     private void Start()
     {
         EventManager.s_Instance.StartListening("StartGame", StartGame);
@@ -53,7 +56,7 @@ public class GameManager : Singleton<GameManager>
                     continue;
                 }
                 listRand.Add(rand);
-                Spawn(SpawnLoc.GetChild(rand).position, (ObjectType)Random.Range(3, 7));
+                Spawn(SpawnLoc.GetChild(rand).position, (ObjectType)Random.Range(3, 9));
             }
         }
         

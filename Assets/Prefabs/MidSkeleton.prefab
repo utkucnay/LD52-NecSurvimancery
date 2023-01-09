@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2837715383690254676}
   - component: {fileID: 2837715383690254677}
-  - component: {fileID: 2837715383690254679}
   - component: {fileID: 2837715383690254678}
   - component: {fileID: 8665000543781879634}
   - component: {fileID: -3546113263255508707}
+  - component: {fileID: 3305589480191750772}
   m_Layer: 0
   m_Name: MidSkeleton
   m_TagString: Untagged
@@ -88,24 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2837715383690254679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2837715383690254634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292e0708118e66f4cb44499da26fd55c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackPower: 4
-  range: 3.5
-  dashSpeed: 7.5
-  healthSubsystem:
-    health: 0
-    maxHealth: 10
 --- !u!195 &2837715383690254678
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -174,3 +156,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3305589480191750772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837715383690254634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201ae207cbb9a5f47a7dc8f7635812ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackPower: 4
+  range: 3.75
+  dashSpeed: 7
+  healthSubsystem:
+    health: 0
+    maxHealth: 0

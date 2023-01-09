@@ -1,6 +1,8 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AIManager : Singleton<AIManager>
@@ -23,18 +25,35 @@ public class AIManager : Singleton<AIManager>
         skeleton.transform.position = loc;
         lilSkeletons.Add(skeleton);
         targetGroup.AddMember(skeleton.transform, 1, 0);
-        if (lilSkeletons.Count >= 10)
+        if (lilSkeletons.Count % 10 == 0)
         {
-            int lenght = lilSkeletons.Count;
+            int length = lilSkeletons.Count;
             Vector3 avrVec = Vector3.zero;
-            for (int i = 0; i < lilSkeletons.Count; i++)
+            var lilSkeletonsTween = new List<GameObject>();
+            for (int i = lilSkeletons.Count - 10; i < length * lilSkeletons.Count / 10; i++)
             {
                 avrVec += lilSkeletons[i].transform.position;
-                RemoveLilSkeleton(lilSkeletons[i]);
-                i--;
+                lilSkeletonsTween.Add(lilSkeletons[i]);
             }
-            avrVec = avrVec / lenght;
-            AddMidSkeleton(avrVec);
+
+            avrVec = avrVec / length;
+
+            var seq = DOTween.Sequence();
+            seq.Append(lilSkeletonsTween[0].transform.DOMove(avrVec, 2f).SetEase(Ease.InQuad));
+            seq.AppendCallback(() =>
+            {
+                AddMidSkeleton(avrVec);
+                for (int i = 0; i < 10; i++)
+                {
+                    RemoveLilSkeleton(lilSkeletonsTween[i]);
+                }
+                lilSkeletonsTween.Clear();
+            });
+            for (int i = 1; i < 10; i++)
+            {
+                lilSkeletonsTween[i].transform.DOMove(avrVec, 2f).SetEase(Ease.InQuad);
+            }
+            
         }
     }
 
@@ -54,18 +73,34 @@ public class AIManager : Singleton<AIManager>
         midSkeletons.Add(midSkeleton);
         targetGroup.AddMember(midSkeleton.transform, 1, 0);
 
-        if (midSkeletons.Count >= 8)
+        if (midSkeletons.Count % 8 == 0)
         {
             int lenght = midSkeletons.Count;
             Vector3 avrVec = Vector3.zero;
-            for (int i = 0; i < midSkeletons.Count; i++)
+            var midSkeletonsTween = new List<GameObject>();
+            for (int i = 0; i < lenght; i++)
             {
                 avrVec += midSkeletons[i].transform.position;
-                RemoveMidSkeleton(midSkeletons[i]);
-                i--;
+                midSkeletonsTween.Add(midSkeletons[i]);
             }
-            avrVec = avrVec / lenght;
-            AddHugeSkeleton(avrVec);
+
+            avrVec /= lenght;
+
+            var seq = DOTween.Sequence();
+            seq.Append(midSkeletonsTween[0].transform.DOMove(avrVec, 3.5f).SetEase(Ease.InQuad));
+            seq.AppendCallback(() =>
+            {
+                AddHugeSkeleton(avrVec);
+                for (int i = 0; i < 8; i++)
+                {
+                    RemoveMidSkeleton(midSkeletonsTween[i]);
+                }
+                midSkeletonsTween.Clear();
+            });
+            for (int i = 1; i < 8; i++)
+            {
+                midSkeletonsTween[i].transform.DOMove(avrVec, 3.5f).SetEase(Ease.InQuad);
+            }
         }
     }
 

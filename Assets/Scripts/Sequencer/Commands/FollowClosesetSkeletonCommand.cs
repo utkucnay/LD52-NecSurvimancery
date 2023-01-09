@@ -18,6 +18,7 @@ public class FollowClosesetSkeletonCommand : Command
     public override void Execute()
     {
         var skeleton = AIManager.s_Instance.GetClosestSkeleton(gameObject.transform.position);
+        if (skeleton == null) return;
         agent.SetDestination(skeleton.transform.position);
     }
 

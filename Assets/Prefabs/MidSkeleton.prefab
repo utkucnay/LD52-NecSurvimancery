@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackPower: 4
+  range: 3.5
+  dashSpeed: 7.5
   healthSubsystem:
     health: 0
     maxHealth: 10

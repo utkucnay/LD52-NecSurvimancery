@@ -30,7 +30,7 @@ public class EnemyAI : StateTree
 
         MoveSeqancer.AddCommand(ParallelCommand.Init(
             TimerCommand.Init(
-                .2f), new Command[] { FollowClosesetSkeletonCommand.Init(gameObject) }));
+                .2f), new Command[] { FollowClosesetSkeletonCommand.Init(gameObject), CharacterRotaterCommand.Init(gameObject) }));
         MoveSeqancer.AddCommand(TimerCommand.Init(.4f));
 
         TauntSeqancer.AddAction(() => SetData("IsDamaged", false));

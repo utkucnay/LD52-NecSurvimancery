@@ -53,6 +53,45 @@ public class AIManager : Singleton<AIManager>
         midSkeleton.SetActive(true);
         midSkeletons.Add(midSkeleton);
         targetGroup.AddMember(midSkeleton.transform, 1, 0);
+
+        if (midSkeletons.Count >= 8)
+        {
+            int lenght = midSkeletons.Count;
+            Vector3 avrVec = Vector3.zero;
+            for (int i = 0; i < midSkeletons.Count; i++)
+            {
+                avrVec += midSkeletons[i].transform.position;
+                RemoveMidSkeleton(midSkeletons[i]);
+                i--;
+            }
+            avrVec = avrVec / lenght;
+            AddHugeSkeleton(avrVec);
+        }
+    }
+
+    public void RemoveMidSkeleton(GameObject gameObject)
+    {
+        ObjectPool.s_Instance.SetObject(ObjectType.MidSkeleton, gameObject);
+        gameObject.SetActive(false);
+        midSkeletons.Remove(gameObject);
+        targetGroup.RemoveMember(gameObject.transform);
+    }
+
+    public void AddHugeSkeleton(Vector3 loc)
+    {
+        var hugeSkeleton = ObjectPool.s_Instance.GetObject(ObjectType.HugeSkeleton);
+        hugeSkeleton.transform.position = loc;
+        hugeSkeleton.SetActive(true);
+        hugeSkeletons.Add(hugeSkeleton);
+        targetGroup.AddMember(hugeSkeleton.transform, 1, 0);
+    }
+
+    public void RemoveHugeSkeleton(GameObject gameObject)
+    {
+        ObjectPool.s_Instance.SetObject(ObjectType.HugeSkeleton, gameObject);
+        gameObject.SetActive(false);
+        hugeSkeletons.Remove(gameObject);
+        targetGroup.RemoveMember(gameObject.transform);
     }
 
     public GameObject GetClosestSkeleton(in Vector3 loc)

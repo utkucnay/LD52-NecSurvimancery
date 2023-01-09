@@ -60662,8 +60662,8 @@ MonoBehaviour:
     _count: 20
     _prefab: {fileID: 2837715383690254634, guid: 9361c8f384d8fb2488fd02604572ad14, type: 3}
   - _objectType: 2
-    _count: 10
-    _prefab: {fileID: 5228027411058305988, guid: 834e56336fb22cc4e895ea550836f907, type: 3}
+    _count: 20
+    _prefab: {fileID: 4853718421858605692, guid: c8bbc0f7831b0944ebac734ebc2b9a63, type: 3}
   - _objectType: 3
     _count: 70
     _prefab: {fileID: 5228027411058305988, guid: 834e56336fb22cc4e895ea550836f907, type: 3}

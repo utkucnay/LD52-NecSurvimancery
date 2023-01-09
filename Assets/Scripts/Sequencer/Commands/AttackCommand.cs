@@ -8,9 +8,10 @@ public class AttackCommand : Command
     NavMeshAgent agent;
     GameObject gameObject;
     GameObject targetObject;
+    StateTree stateTree;
 
-    public static AttackCommand Init(GameObject gameObject) => 
-        new AttackCommand() { gameObject = gameObject, agent = gameObject.GetComponent<NavMeshAgent>() };
+    public static AttackCommand Init(GameObject gameObject, StateTree stateTree) => 
+        new AttackCommand() { gameObject = gameObject, agent = gameObject.GetComponent<NavMeshAgent>(), stateTree = stateTree };
 
     public override bool CheckCondition()
     {
@@ -21,9 +22,9 @@ public class AttackCommand : Command
 
     public override void Execute()
     {
-        targetObject = Physics2D.OverlapCircle(gameObject.transform.position, 3f, LayerMask.GetMask("Enemy"))?.gameObject;
+        targetObject = Physics2D.OverlapCircle(gameObject.transform.position, (float)stateTree.dataMap["WarningRange"], LayerMask.GetMask("Enemy"))?.gameObject;
         if (targetObject == null) return;
-        agent.velocity = (targetObject.transform.position - gameObject.transform.position).normalized * 10f;
+        agent.velocity = (targetObject.transform.position - gameObject.transform.position).normalized * (float)stateTree.dataMap["DashSpeed"];
     }
 
     public override void ResetVariable()

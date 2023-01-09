@@ -10,6 +10,8 @@ public class LilSkeleton : MonoBehaviour, IDamagable
     StateTree stateTree;
 
     [SerializeField] float AttackPower = 0;
+    [SerializeField] float range = 2.5f;
+    [SerializeField] float dashSpeed = 10f;
 
     [SerializeField] HealthSubsystem healthSubsystem;
 
@@ -31,11 +33,13 @@ public class LilSkeleton : MonoBehaviour, IDamagable
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        stateTree.SetData("WarningRange", range);
+        stateTree.SetData("DashSpeed", dashSpeed);
     }
 
     private void Update()
     {
-        stateTree.SetData("EnemyFind", Physics2D.OverlapCircle(transform.position,2.5f, LayerMask.GetMask("Enemy")) != null);
+        stateTree.SetData("EnemyFind", Physics2D.OverlapCircle(transform.position, range, LayerMask.GetMask("Enemy")) != null);
 
         stateTree.Execution();
 
@@ -81,6 +85,7 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 
     public void PushSelf(float amount, Vector2 dir)
     {
+        if (gameObject.activeSelf == false) return;
         agent.ResetPath();
         agent.velocity = amount * dir;
     }

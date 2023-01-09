@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamagable 
 {
+    public ParticleSystem blood;
+
     NavMeshAgent agent;
     StateTree stateTree;
     [SerializeField] public float attackPower;
@@ -45,5 +47,11 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         agent.ResetPath();
         agent.velocity = amount * dir;
+    }
+
+    void CreateBlood()
+    {
+        blood.Play();
+        Debug.Log("kan");
     }
 }

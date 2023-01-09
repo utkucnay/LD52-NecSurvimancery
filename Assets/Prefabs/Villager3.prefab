@@ -124,7 +124,8 @@ MonoBehaviour:
   attackPower: 0
   healthSubsystem:
     health: 0
-    maxHealth: 30
+    maxHealth: 1
+  objectType: 5
 --- !u!61 &4805868843758074336
 BoxCollider2D:
   m_ObjectHideFlags: 0

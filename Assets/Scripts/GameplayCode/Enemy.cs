@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IDamagable
 
     [SerializeField] HealthSubsystem healthSubsystem;
 
+    public ObjectType objectType;
+
     public void Damage(float damage, Vector2 dir)
     {
         PushSelf(damage, dir);
@@ -35,6 +37,7 @@ public class Enemy : MonoBehaviour, IDamagable
     void OnDie()
     {
         AIManager.s_Instance.AddLilSkeleton(this.gameObject);
+        ObjectPool.s_Instance.SetObject(objectType, this.gameObject);
     }
 
     public void PushSelf(float amount, Vector2 dir)

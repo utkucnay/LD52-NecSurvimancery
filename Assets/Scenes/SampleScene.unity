@@ -986,10 +986,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.15276273
-    y: 0.15221581
-    width: 0.6933911
-    height: 0.6936416
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
@@ -60660,7 +60660,7 @@ MonoBehaviour:
     _prefab: {fileID: 6854992167614487740, guid: 7b4e83adfc0639942829ffedbfc2e136, type: 3}
   - _objectType: 1
     _count: 20
-    _prefab: {fileID: 5228027411058305988, guid: 834e56336fb22cc4e895ea550836f907, type: 3}
+    _prefab: {fileID: 2837715383690254634, guid: 9361c8f384d8fb2488fd02604572ad14, type: 3}
   - _objectType: 2
     _count: 10
     _prefab: {fileID: 5228027411058305988, guid: 834e56336fb22cc4e895ea550836f907, type: 3}
@@ -60813,7 +60813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da825fa60480ff949a1873482063965b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletons: []
+  lilSkeletons: []
+  midSkeletons: []
+  hugeSkeletons: []
   targetGroup: {fileID: 1440517936}
 --- !u!1 &1837671415
 GameObject:

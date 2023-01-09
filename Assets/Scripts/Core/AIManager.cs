@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class AIManager : Singleton<AIManager>
 {
-    public List<GameObject> skeletons;
+    public List<GameObject> lilSkeletons;
+    public List<GameObject> midSkeletons;
+    public List<GameObject> hugeSkeletons;
 
     public CinemachineTargetGroup targetGroup;
 
     public void AddLilSkeleton(GameObject gameObject)
     {
-        var skeleton = ObjectPool.s_Instance.GetObject(ObjectType.LilSkeleton);
-        skeleton.SetActive(true);
-        skeleton.transform.position = gameObject.transform.position;
-        skeletons.Add(skeleton);
-        targetGroup.AddMember(skeleton.transform,1,0);
+        AddLilSkeleton(gameObject.transform.position);
     }
 
     public void AddLilSkeleton(Vector3 loc)
@@ -23,24 +21,50 @@ public class AIManager : Singleton<AIManager>
         var skeleton = ObjectPool.s_Instance.GetObject(ObjectType.LilSkeleton);
         skeleton.SetActive(true);
         skeleton.transform.position = loc;
-        skeletons.Add(skeleton);
+        lilSkeletons.Add(skeleton);
         targetGroup.AddMember(skeleton.transform, 1, 0);
+        if (lilSkeletons.Count >= 10)
+        {
+            int lenght = lilSkeletons.Count;
+            Vector3 avrVec = Vector3.zero;
+            for (int i = 0; i < lilSkeletons.Count; i++)
+            {
+                avrVec += lilSkeletons[i].transform.position;
+                RemoveLilSkeleton(lilSkeletons[i]);
+                i--;
+            }
+            avrVec = avrVec / lenght;
+            AddMidSkeleton(avrVec);
+        }
     }
 
     public void RemoveLilSkeleton(GameObject gameObject)
     {
         ObjectPool.s_Instance.SetObject(ObjectType.LilSkeleton, gameObject);
         gameObject.SetActive(false);
-        skeletons.Remove(gameObject);
+        lilSkeletons.Remove(gameObject);
         targetGroup.RemoveMember(gameObject.transform);
+    }
+
+    public void AddMidSkeleton(Vector3 loc)
+    {
+        var midSkeleton = ObjectPool.s_Instance.GetObject(ObjectType.MidSkeleton);
+        midSkeleton.transform.position = loc;
+        midSkeleton.SetActive(true);
+        midSkeletons.Add(midSkeleton);
+        targetGroup.AddMember(midSkeleton.transform, 1, 0);
     }
 
     public GameObject GetClosestSkeleton(in Vector3 loc)
     {
         float min = float.MaxValue;
         GameObject gameObject = null;
-
-        foreach (var skeleton in skeletons)
+        var allSkeleton = new List<GameObject>();
+        allSkeleton.AddRange(lilSkeletons);
+        allSkeleton.AddRange(midSkeletons);
+        allSkeleton.AddRange(hugeSkeletons);
+        if (allSkeleton.Count <= 0) return null;
+        foreach (var skeleton in allSkeleton)
         {
             float tempMin = Vector3.Distance(skeleton.transform.position, loc);
             if (min > tempMin)

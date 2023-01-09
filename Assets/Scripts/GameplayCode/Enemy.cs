@@ -13,15 +13,15 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public void Damage(float damage, Vector2 dir)
     {
-        healthSubsystem.Damage(damage);
         PushSelf(damage, dir);
         stateTree.SetData("IsDamaged", true);
+        healthSubsystem.Damage(damage);
     }
 
     private void Start()
     {
         stateTree = EnemyAI.Init(gameObject);
-        healthSubsystem.Start(gameObject);
+        healthSubsystem.Start(gameObject, OnDie);
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -30,6 +30,11 @@ public class Enemy : MonoBehaviour, IDamagable
     private void Update()
     {
         stateTree.Execution();
+    }
+
+    void OnDie()
+    {
+        AIManager.s_Instance.AddLilSkeleton(this.gameObject);
     }
 
     public void PushSelf(float amount, Vector2 dir)

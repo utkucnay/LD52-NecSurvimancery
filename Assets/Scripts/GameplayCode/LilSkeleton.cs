@@ -20,14 +20,14 @@ public class LilSkeleton : MonoBehaviour, IDamagable
 
     public void Damage(float damage, Vector2 dir)
     {
-        healthSubsystem.Damage(damage);
         PushSelf(damage, dir);
+        healthSubsystem.Damage(damage);
     }
 
     private void Start()
     {
         stateTree = LilSkeletonStateTree.Init(gameObject);
-        healthSubsystem.Start(gameObject);
+        healthSubsystem.Start(gameObject, OnDie);
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -38,6 +38,8 @@ public class LilSkeleton : MonoBehaviour, IDamagable
         stateTree.SetData("EnemyFind", Physics2D.OverlapCircle(transform.position,2.5f, LayerMask.GetMask("Enemy")) != null);
 
         stateTree.Execution();
+
+        Debug.Log(((LilSkeletonStateTree.States)stateTree.GetCurrState()).ToString());
 
         timer += Time.deltaTime;
 
@@ -72,6 +74,10 @@ public class LilSkeleton : MonoBehaviour, IDamagable
         
     }
     
+    void OnDie()
+    {
+
+    }
 
     public void PushSelf(float amount, Vector2 dir)
     {

@@ -9,12 +9,13 @@ public struct HealthSubsystem
     [HideInInspector] public float health;
     public float maxHealth;
     GameObject gameObject;
-    [SerializeField] UnityEvent dieEvent;
+    System.Action Die;
 
-    public void Start(GameObject gameObject)
+    public void Start(GameObject gameObject, System.Action action)
     {
         this.gameObject = gameObject;
         health = maxHealth;
+        Die = action;
     }
 
     public void Damage(float damage)
@@ -27,6 +28,6 @@ public struct HealthSubsystem
     public void OnDie()
     {
         gameObject.SetActive(false);
-        dieEvent.Invoke();
+        Die();
     }
 }

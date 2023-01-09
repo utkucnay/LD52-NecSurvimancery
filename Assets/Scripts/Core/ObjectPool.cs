@@ -5,7 +5,12 @@ using UnityEngine;
 public enum ObjectType
 {
     LilSkeleton,
-    MidSkeleton
+    MidSkeleton,
+    HugeSkeleton,
+    Village1,
+    Village2,
+    Village3,
+    Village4
 }
 
 [System.Serializable]

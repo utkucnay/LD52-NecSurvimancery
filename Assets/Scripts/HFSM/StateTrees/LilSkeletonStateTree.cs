@@ -43,10 +43,9 @@ public class LilSkeletonStateTree : StateTree
             var agent = gameObject.GetComponent<NavMeshAgent>();
             agent.velocity = (-agent.velocity).normalized * 2f;
         });
-        IdleSeqancer.AddCommand(MaterialChangeColorCommand.Init(gameObject.GetComponent<SpriteRenderer>()?.material, Color.red, .2f));
-        IdleSeqancer.AddCommand(TimerCommand.Init(1.3f));
-        IdleSeqancer.AddCommand(MaterialChangeColorCommand.Init(gameObject.GetComponent<SpriteRenderer>()?.material, Color.white, .2f));
-        IdleSeqancer.AddCommand(TimerCommand.Init(.2f));
+        
+        IdleSeqancer.AddCommand(TimerCommand.Init(1.5f));
+
 
 
         FollowPlayerSeqancer.AddCommand(ParallelCommand.Init(
@@ -69,7 +68,7 @@ public class LilSkeletonStateTree : StateTree
         IdleState.AddTransitions(Transition.Init(() => { return _currState.IsFinish; }, (int)States.kFollowPlayer));
 
         CombatState.AddTransitions(Transition.Init(() => { return (bool)dataMap["IsAttack"]; }, (int)States.kIdle));
-        CombatState.AddTransitions(Transition.Init(() => { return (bool)dataMap["IsBreakAttack"]; }, (int)States.kFollowPlayer));
+        CombatState.AddTransitions(Transition.Init(() => { return _currState.IsFinish; }, (int)States.kFollowPlayer));
 
         FollowPlayerState.AddTransitions(Transition.Init(() => 
         { 

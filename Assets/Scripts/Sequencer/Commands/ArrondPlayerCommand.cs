@@ -20,7 +20,7 @@ public class ArrondPlayerCommand : Command
     public override void Execute()
     {
         var dir = Vector2.up.Rotate(Random.Range(0, 360));
-        loc = dir * targetObject.transform.position * Random.Range(.8f,3f);
+        loc =  targetObject.transform.position + (Vector3)(dir * Random.Range(6f, 10f));
         agent.SetDestination(loc);
     }
 

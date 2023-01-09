@@ -6,6 +6,14 @@ using UnityEngine.AI;
 
 public class LilSkeleton : MonoBehaviour, IDamagable
 {
+    enum Type
+    {
+        lilSkeleton,
+        hugeSkeleton
+    }
+
+    [SerializeField] Type type;
+
     NavMeshAgent agent;
     StateTree stateTree;
     SpriteRenderer sr;
@@ -85,7 +93,16 @@ public class LilSkeleton : MonoBehaviour, IDamagable
     
     void OnDie()
     {
-
+        switch (type)
+        {
+            case Type.lilSkeleton:
+                AIManager.s_Instance.RemoveLilSkeleton(this.gameObject);
+                break;
+            case Type.hugeSkeleton:
+                AIManager.s_Instance.RemoveHugeSkeleton(this.gameObject);
+                break;
+        }
+        
     }
 
     public void PushSelf(float amount, Vector2 dir)

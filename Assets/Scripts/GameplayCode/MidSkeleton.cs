@@ -79,7 +79,7 @@ public class MidSkeleton : MonoBehaviour
 
     void OnDie()
     {
-
+        AIManager.s_Instance.RemoveMidSkeleton(this.gameObject);
     }
 
     public void PushSelf(float amount, Vector2 dir)

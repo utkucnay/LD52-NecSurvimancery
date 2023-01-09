@@ -124,10 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 182287997399095613, guid: 8678402297976bf4eb955597014bf021, type: 3}
-  attackPower: 0
+  attackPower: 7
   healthSubsystem:
     health: 0
-    maxHealth: 1
+    maxHealth: 40
   objectType: 5
 --- !u!61 &232969813
 BoxCollider2D:
@@ -184,7 +184,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 182287997399095613, guid: 8678402297976bf4eb955597014bf021, type: 3}
       propertyPath: playOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7221577000472725570, guid: 8678402297976bf4eb955597014bf021, type: 3}
       propertyPath: m_Name

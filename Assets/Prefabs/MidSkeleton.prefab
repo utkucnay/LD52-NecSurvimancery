@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201ae207cbb9a5f47a7dc8f7635812ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackPower: 4
+  AttackPower: 25
   range: 3.75
   dashSpeed: 7
   healthSubsystem:
     health: 0
-    maxHealth: 0
+    maxHealth: 60

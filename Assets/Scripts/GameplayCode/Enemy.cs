@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour, IDamagable
         agent.updateUpAxis = false;
     }
 
+ 
+
     private void Update()
     {
         stateTree.Execution();
@@ -46,6 +48,7 @@ public class Enemy : MonoBehaviour, IDamagable
     public void PushSelf(float amount, Vector2 dir)
     {
         agent.ResetPath();
+        amount = Mathf.Clamp(amount,0,4);
         agent.velocity = amount * dir;
     }
 

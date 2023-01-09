@@ -124,10 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blood: {fileID: 182287997399095613, guid: 8678402297976bf4eb955597014bf021, type: 3}
-  attackPower: 0
+  attackPower: 4
   healthSubsystem:
     health: 0
-    maxHealth: 1
+    maxHealth: 25
   objectType: 4
 --- !u!61 &6562745279225211048
 BoxCollider2D:

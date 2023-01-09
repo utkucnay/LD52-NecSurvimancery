@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -14,16 +15,21 @@ public class GameManager : Singleton<GameManager>
 
     public int souls;
 
+    public UnityEvent eStartGame;
+
     private void Start()
     {
-        EventManager.s_Instance.StartListening("StartGame", StartGame);
-        SpawnLogic();
-        AIManager.s_Instance.AddLilSkeleton(Vector3.left * 2);
+        eStartGame.AddListener(() =>
+        {
+            SpawnLogic();
+            AIManager.s_Instance.AddLilSkeleton(Vector3.left * 2);
+        });
+        
     }
 
-    void StartGame(Dictionary<string,object> message)
+    public void StartGame()
     {
-        time = 0;
+       eStartGame.Invoke(); 
     }
 
     private void Update()
@@ -45,8 +51,10 @@ public class GameManager : Singleton<GameManager>
             yield return new WaitForSeconds(SpawnTimer);
             SpawnCount = (int)(time / 52.8) + 1;
             SpawnTimer = Utils.Scale(0, 1800, 6f, .4f, time);
-            Mathf.Clamp(SpawnCount, 0, 70);
-            Mathf.Clamp(SpawnTimer, 0.4f, 6f);
+            int SpawnObjectType = (int)(time / 70.6f) + 4;
+            SpawnCount = Mathf.Clamp(SpawnCount, 0, 70);
+            SpawnTimer = Mathf.Clamp(SpawnTimer, 0.4f, 6f);
+            SpawnObjectType = Mathf.Clamp(SpawnObjectType, 4, 9);
             var listRand = new List<int>();
             for (int i = 0; i < SpawnCount; i++)
             {
@@ -56,7 +64,7 @@ public class GameManager : Singleton<GameManager>
                     continue;
                 }
                 listRand.Add(rand);
-                Spawn(SpawnLoc.GetChild(rand).position, (ObjectType)Random.Range(3, 9));
+                Spawn(SpawnLoc.GetChild(rand).position, (ObjectType)Random.Range(3, SpawnObjectType));
             }
         }
         

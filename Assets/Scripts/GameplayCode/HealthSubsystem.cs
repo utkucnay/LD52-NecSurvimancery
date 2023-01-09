@@ -25,9 +25,15 @@ public struct HealthSubsystem
             OnDie();
     }
 
+    public void ResetHealth()
+    {
+        health = maxHealth;
+    }
+
     public void OnDie()
     {
         gameObject.SetActive(false);
+        ResetHealth();
         Die();
     }
 }

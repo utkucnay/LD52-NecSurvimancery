@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5228027411058305992}
   - component: {fileID: 953686391852468035}
   - component: {fileID: 232969813}
+  - component: {fileID: 8989991867624365504}
   m_Layer: 7
   m_Name: Villager1
   m_TagString: Enemy
@@ -152,3 +153,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1140658, y: 1.3617401}
   m_EdgeRadius: 0
+--- !u!95 &8989991867624365504
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228027411058305988}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5173059521b35c1439980114db36208c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
